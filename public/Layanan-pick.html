@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layanan MedicGis</title>
+    <!-- Fonts ANTON -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- CSS STYLE -->
+    <link href="Layanan-pick.css" rel="stylesheet" />
+    <!-- Leaflet Map -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <body>
+    <!-- Head Logo + Slogan Start -->
+    <section class="head1">
+      <div class="logo">
+        <a href="MedicGIS.html">MedicGIS</a>
+        <img src="image/logomedicgis75.jpg" />
+      </div>
+      <div class="slogan">
+        <h2>MedicGIS Navigate</h2>
+        <h2>Health, Access Faster</h2>
+      </div>
+    </section>
+
+    <!-- Section Jenis Fasilitas Kesehatan -->
+    <section class="head2">
+      <h2>Jenis Fasilitas Kesehatan</h2>
+    </section>
+
+    <!-- Navigasi Bar -->
+    <section class="navigasi">
+      <a href="Layanan.html">Semua</a>
+      <a href="Layanan-rs.html?kategori=14001">Rumah Sakit</a>
+      <a href="Layanan-klinik.html?kategori=14002">Klinik</a>
+      <a href="Layanan-puskesmas.html?kategori=14005">Puskesmas</a>
+      <a href="Layanan-apotek.html?kategori=14003">Apotek</a>
+      <a href="Layanan-lab.html?kategori=14004">Laboratorium</a>
+    </section>
+
+    <!-- Search List -->
+    <div class="result">
+        <!-- box kiri -->
+         <section class="left-box">
+        <div id="iconbox">
+      <i id="plus" data-feather="plus" style="color: #5a9b5c"></i>
+       <p>  Rumah Sakit  </p>
+       <a href="Layanan.html"><i class="exit" data-feather="x-circle" style="color: #ffffff"></i></a>
+       </div>
+       <div id="imagebox">
+              <img src="image/rsnd.jpg" />
+        <h2>RS Nasional Diponegoro</h2>
+       </div>
+
+       <div id="scrollbox">
+        <section id="Alamat">
+            <h3>Alamat</h3>
+            <p>Jl. Jenderal Pol Anton Sujarwo No. 195A, Srondol Wetan, Kota Semarang</p>
+        </section>
+        <section id="Kontak">
+            <h3>Kontak</h3>
+            <p>(024) 76488989</p>
+        </section>
+        <section id="Website">
+            <h3>Website</h3>
+            <a href="https://rsnd.undip.ac.id">https://rsnd.undip.ac.id</a>
+        </section>
+
+        <section id="Review">
+            <div><h3>Review</h3></div>
+                <div>
+                <ul>
+                  <ol><input type="text" class="input-name" placeholder="Nama"/></ol>
+                  <ol class="review-bar">
+                    <ul><ol><input type="text" class="input-review" placeholder="Review"/></ol>
+                        <ol><a href="#"><i id="send" data-feather="send" style="color: #5a9b5c; height: 20px; width: 20px; margin-top: 35px;"></i></a></ol>
+                    </ul>
+                  </ol>
+               </ul>
+               </div>
+        </section>
+
+        <section id="Rating-star">
+  <!-- Rating keseluruhan -->
+  <div class="rating-summary">
+  <span class="star" data-value="1">&#9734;</span>
+  <span class="star" data-value="2">&#9734;</span>
+  <span class="star" data-value="3">&#9734;</span>
+  <span class="star" data-value="4">&#9734;</span>
+  <span class="star" data-value="5">&#9734;</span>
+  </div>
+
+   <script>
+  const stars = document.querySelectorAll(".rating-summary .star");
+  let currentRating = 0;
+
+  // Saat user mengklik bintang
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      currentRating = index + 1;
+      updateStars(currentRating);
+    });
+
+    star.addEventListener("mouseover", () => {
+      updateStars(index + 1); // Preview saat hover
+    });
+
+    star.addEventListener("mouseout", () => {
+      updateStars(currentRating); // Kembali ke rating terakhir saat mouse keluar
+    });
+  });
+
+  function updateStars(rating) {
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.classList.add("filled");
+      } else {
+        star.classList.remove("filled");
+      }
+    });
+
+  }</script>
+        </section>
+
+<section id="Rating-review">
+  <div class="review-1">
+<p class="review-name">Anonim 
+    <span class="stars">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </span>
+  </p>
+  <p class="review-text">Pelayanan ramah, cepat, dan baik</p></div>
+
+   <div class="review-2">
+<p class="review-name">Anonim 
+    <span class="stars">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </span>
+  </p>
+  <p class="review-text">Pelayanan ramah, cepat, dan baik</p></div>
+        </section>
+       </div>
+
+       <a href="#"><div id="link-location">
+        <p>Arahkan Lokasi</p>
+         <i id="link" data-feather="external-link" style="color: #ffffff;
+         height: 16px; width: 16px;"></i>
+        
+       </div></a>
+      </section>
+
+    
+        <!-- box kanan -->
+      <section class="right-box">
+        <div class="maps-layout">
+          <div class="search-container">
+            <!--Search Bar-->
+            <a href="#" id="search"><i data-feather="search"></i></a>
+            <input type="text" class="input-search" placeholder="" />
+            <!--Search Bar End-->
+          </div>
+          <div
+            class="leaflet-map"
+            id="map"
+            style="width: 880px; height: 380px"
+          ></div>
+        <script type="text/javascript">
+          const map = L.map("map").setView([-7.051539, 110.442257], 12);
+
+          const tiles = L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+              attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright"></a>',
+            }
+          ).addTo(map);
+
+          // Marker
+          var facilities = [
+    { name: "Rumah Sakit Nasional Diponegoro (RSND)", lat: -7.047895, lon: 110.443630 },
+];
+
+           // Tambahkan Marker ke Peta
+    facilities.forEach(function(facility) {
+        L.marker([facility.lat, facility.lon])
+        .addTo(map)
+        .bindPopup(`<b>${facility.name}</b>`);
+    });
+        </script>
+      </section>
+    </div>
+
+    <script>
+      feather.replace();
+    </script>
+  </body>
+  <footer></footer>
+</html>

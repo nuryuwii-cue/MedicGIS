@@ -1,0 +1,179 @@
+:root {
+  --primary: #5a9b5c;
+  --bg: white;
+  --primefont: #304278;
+}
+
+* {
+  font-family: helvetica;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: helvetica;
+  background-color: var(--bg);
+  color: black;
+}
+
+/* Navigation */
+.navigasi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 7%;
+  background-color: rgb(255, 255, 255);
+  /* border bawah */
+  border-bottom: 1px solid #5a9b5c;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+/* Logo Navigasi */
+.navigasi .nav-logo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-logo h1 {
+  font-family: "Anton", Sans-serif;
+  color: #304278;
+  font-weight: 400;
+  font-size: 2.2rem;
+  font-style: normal;
+}
+
+.nav-logo img {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+}
+/* navbar utama */
+.navigasi .nav-bar a {
+  color: #304278;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 1.5rem;
+}
+
+.navigasi .nav-bar a:hover {
+  color: var(--primary);
+}
+
+.navigasi .nav-bar a::after {
+  content: "";
+  display: block;
+  padding-bottom: 0.5rem;
+  border-bottom: 0.1rem solid var(--primary);
+  transform: scaleX(0);
+  transition: 0.2s linear;
+}
+
+.navigasi .nav-bar a:hover::after {
+  transform: scaleX(0.7);
+}
+
+/* navbar menu */
+.navigasi .navbar-extra a {
+  color: #304278;
+  margin: 0 0.5rem;
+}
+
+.navigasi .navbar-extra a:hover {
+  color: var(--primary);
+}
+
+/* menu masih bingung */
+
+/* section */
+section {
+  min-height: 82vh;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+/* Home Imamge */
+.home-image {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 100px;
+  margin-bottom: 0px;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 70px;
+  margin-bottom: 0px;
+}
+
+.input-search {
+  width: 350px; /* Sesuaikan lebar */
+  padding: 8px 10px 8px 10px;
+  background-color: #ebeaea;
+  border-radius: 25px; /* Membuatnya rounded */
+  outline: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+button {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  transform: translateY(-50%);
+  background-color: transparent; /* Warna ikon */
+  cursor: pointer;
+}
+
+.search-container button #search {
+  color: #888;
+}
+
+.search-container button #search:hover {
+  color: var(--primefont);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  padding: 1.4rem 7%;
+  padding-bottom: 50px;
+  gap: 3rem;
+  color: white;
+  text-align: center;
+  background-color: var(--primary);
+  font-family: helvetica;
+  font-size: 16px;
+  margin-top: -150px;
+  margin-bottom: 0px;
+}
+
+.footer h2 {
+  text-align: left;
+}
+
+.footer a {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: var(--primefont);
+  color: white;
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 45px;
+  font-family: helvetica;
+  font-size: 16px;
+  transition: 0.5s;
+}
+
+.footer a:hover {
+  background-color: white;
+  color: var(--primefont);
+}

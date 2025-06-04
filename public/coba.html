@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layanan MedicGis</title>
+    <!-- Fonts ANTON -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- CSS STYLE -->
+    <link href="coba.css" rel="stylesheet" />
+    <!-- Leaflet Map -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <body>
+    <!-- Head Logo + Slogan Start -->
+    <section class="head1">
+      <div class="logo">
+        <a href="MedicGIS.html">MedicGIS</a>
+        <img src="image/logomedicgis75.jpg" />
+      </div>
+      <div class="slogan">
+        <h2>MedicGIS Navigate</h2>
+        <h2>Health, Access Faster</h2>
+      </div>
+    </section>
+
+    <!-- Section Jenis Fasilitas Kesehatan -->
+    <section class="head2">
+      <h2>Jenis Fasilitas Kesehatan</h2>
+    </section>
+
+    <!-- Navigasi Bar -->
+    <section class="navigasi">
+       <a href="Layanan.html">Semua</a>
+      <a href="Layanan-rs.html?kategori=14001">Rumah Sakit</a>
+      <a href="Layanan-klinik.html?kategori=14002">Klinik</a>
+      <a href="Layanan-puskesmas.html?kategori=14005">Puskesmas</a>
+      <a href="Layanan-apotek.html?kategori=14003">Apotek</a>
+      <a href="Layanan-lab.html?kategori=14004">Laboratorium</a>
+    </section>
+
+    <!-- Search List -->
+    <div class="result">
+        <!-- box kiri -->
+         <!-- box kiri -->
+      <section id="left-box">
+        <!-- isi -->
+      </section>
+    
+        <!-- box kanan -->
+      <section class="right-box">
+        <div class="maps-layout">
+          <form class="search-container" action="Search-result.html" method="GET">
+        <!--Search Bar-->
+        <input
+         type="text"
+    id="searchInput"
+    name="q"
+    class="input-search"
+    placeholder="Cari Fasilitas Kesehatan"
+    autocomplete="off"
+    required
+        />
+        <button><i data-feather="search" id="search"></i></button>
+        <!--Search Bar End-->
+      </form>
+          <div
+            class="leaflet-map"
+            id="map"
+            style="width: 880px; height: 380px"
+          ></div>
+       
+      </section>
+    </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    feather.replace();
+
+    const container = document.getElementById("left-box");
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const mapContainer = document.getElementById("map");
+
+    if (!id) {
+      alert("ID tidak ditemukan di URL.");
+      return;
+    }
+
+    // Inisialisasi peta
+    const map = L.map("map").setView([-7.051539, 110.442257], 15); // Zoom lebih dekat
+    const tiles = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      }
+    ).addTo(map);
+
+    fetch(`/detail?id=${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        if (data.length > 0) {
+          const detail = data[0];
+          
+          // Update container content
+          container.innerHTML = `
+            <div id="iconbox">
+              <i id="plus" data-feather="plus" style="color: #5a9b5c"></i>
+              <p>${detail.nama_kategori}</p>
+              <a href="Layanan.html">
+                <i class="exit" data-feather="x-circle" style="color: #ffffff"></i>
+              </a>
+            </div>
+            <div id="imagebox">
+              <img src="${detail.url_foto || 'image/default.jpg'}" />
+              <h2>${detail.nama_fasilitas}</h2>
+            </div>
+            <div id="scrollbox">
+              <section id="Alamat">
+                <h3>Alamat</h3>
+                <p>${detail.alamat}</p>
+              </section>
+              <section id="Kontak">
+                <h3>Kontak</h3>
+                <p>${detail.kontak}</p>
+              </section>
+              <section id="Website">
+                <h3>Website</h3>
+                <a href="${detail.website}" target="_blank">${detail.website}</a>
+              </section>
+              <section id="Review">
+                <div><h3>Review</h3></div>
+                <form id="reviewForm" method="POST">
+                  <input type="text" id="nama" placeholder="Nama" required class="input-name" />
+                  <input type="text" id="review" placeholder="Review" required class="input-review" />
+                 <button type="submit" id="submit" style="all: unset; cursor: pointer;" title="Kirim Review">
+                    <i data-feather="send" style="color: #5a9b5c; height: 20px; width: 20px; margin-top: 10px;"></i>
+                  </button>
+                </form>
+              </section>
+              <section id="Rating-review">
+  <div class="review-1">
+<p class="review-name">Anonim 
+    <span class="stars">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </span>
+  </p>
+  <p class="review-text">Pelayanan ramah, cepat, dan baik</p></div>
+
+   <div class="review-2">
+<p class="review-name">Anonim 
+    <span class="stars">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </span>
+  </p>
+  <p class="review-text">Pelayanan ramah, cepat, dan baik</p></div>
+        </section>
+       </div>
+
+       <a href="#"><div id="link-location">
+        <p>Arahkan Lokasi</p>
+         <i id="link" data-feather="external-link" style="color: #ffffff;
+         height: 16px; width: 16px;"></i>
+        
+       </div></a>
+            </div>
+          `;
+
+          // Add marker to map if coordinates exist
+          if (detail.latitude && detail.longitude) {
+            const marker = L.marker([detail.latitude, detail.longitude])
+              .addTo(map)
+              .bindPopup(`
+                <b>${detail.nama_fasilitas}</b><br>
+                ${detail.alamat || ''}
+              `)
+              .openPopup();
+            
+            // Center map on the marker
+            map.setView([detail.latitude, detail.longitude], 15);
+          } else {
+            console.warn("Koordinat tidak tersedia untuk fasilitas ini");
+          }
+
+          feather.replace();
+
+           // Add event listener for review form submission
+          const reviewForm = document.getElementById("reviewForm");
+          const reviewMessage = document.getElementById("reviewMessage");
+
+          reviewForm.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById("nama").value;
+            const review = document.getElementById("review").value;
+            const rating = document.getElementById("rating").value;
+
+            if (!nama || !review || !rating) {
+              reviewMessage.textContent = "Harap isi semua field!";
+              reviewMessage.style.color = "red";
+              return;
+            }
+
+            try {
+              const response = await fetch('/api/ulasan', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  username: nama,
+                  komentar: review,
+                  rating: rating,
+                  id_fasilitas: id
+                })
+              });
+
+              const result = await response.json();
+
+              if (response.ok) {
+                reviewMessage.textContent = "Ulasan berhasil dikirim!";
+                reviewMessage.style.color = "green";
+                reviewForm.reset();
+              } else {
+                reviewMessage.textContent = result.error || "Gagal mengirim ulasan";
+                reviewMessage.style.color = "red";
+              }
+            } catch (error) {
+              console.error("Error:", error);
+              reviewMessage.textContent = "Terjadi kesalahan saat mengirim ulasan";
+              reviewMessage.style.color = "red";
+            }
+          });
+
+
+        } else {
+          container.innerHTML = "<p>Data tidak ditemukan.</p>";
+        }
+      })
+      .catch(err => {
+        console.error("Fetch error:", err);
+        container.innerHTML = `<p>Error: ${err.message}</p>`;
+      });
+  });
+</script>
+    <script>
+      feather.replace();
+    </script>
+  </body>
+  <footer></footer>
+</html>

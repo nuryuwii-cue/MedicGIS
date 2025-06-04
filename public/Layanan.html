@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layanan MedicGis</title>
+    <!-- Fonts ANTON -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- CSS STYLE -->
+    <link href="Layanan.css" rel="stylesheet" />
+    <!-- Leaflet Map -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <body>
+    <!-- Head Logo + Slogan Start -->
+    <section class="head1">
+      <div class="logo">
+        <a href="MedicGIS.html">MedicGIS</a>
+        <img src="image/logomedicgis75.jpg" />
+      </div>
+      <div class="slogan">
+        <h2>MedicGIS Navigate</h2>
+        <h2>Health, Access Faster</h2>
+      </div>
+    </section>
+
+    <!-- Section Jenis Fasilitas Kesehatan -->
+    <section class="head2">
+      <h2>Jenis Fasilitas Kesehatan</h2>
+    </section>
+
+    <!-- Navigasi Bar -->
+    <section class="navigasi">
+      <a href="Layanan.html">Semua</a>
+      <a href="Layanan-rs.html?kategori=14001">Rumah Sakit</a>
+      <a href="Layanan-klinik.html?kategori=14002">Klinik</a>
+      <a href="Layanan-puskesmas.html?kategori=14005">Puskesmas</a>
+      <a href="Layanan-apotek.html?kategori=14003">Apotek</a>
+      <a href="Layanan-lab.html?kategori=14004">Laboratorium</a>
+    </section>
+
+   <div class="big-container">
+    <!-- Search List -->
+  <div class="result">
+    <div id="resultContainer">
+    <!-- Elemen-elemen hasil pencarian akan dimasukkan ke sini -->
+     </div>
+
+      
+      <!-- Maps and Search -->
+      <div class="maps">
+        <div class="maps-layout">
+          <form class="search-container" action="Search-result.html" method="GET">
+        <!--Search Bar-->
+        <input
+         type="text"
+    id="searchInput"
+    name="q"
+    class="input-search"
+    placeholder="Cari Fasilitas Kesehatan"
+    autocomplete="off"
+    required
+        />
+        <button><i data-feather="search" id="search"></i></button>
+        <!--Search Bar End-->
+      </form>
+          <div
+            class="leaflet-map"
+            id="map"
+            style="width: 880px; height: 380px"
+          ></div>
+
+      <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    feather.replace();
+
+    const params = new URLSearchParams(window.location.search);
+    const keyword = params.get("q");
+    const kategori = params.get("kategori");
+    const container = document.getElementById("resultContainer");
+    const mapContainer = document.getElementById("map");
+
+    // Inisialisasi peta
+    const map = L.map("map").setView([-7.051539, 110.442257], 12);
+    const tiles = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      }
+    ).addTo(map);
+    const markersLayer = L.layerGroup().addTo(map);
+
+    // Fungsi untuk menampilkan hasil di peta
+    function showResultsOnMap(data) {
+      markersLayer.clearLayers();
+
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>Tidak ada fasilitas ditemukan</p>";
+        return;
+      }
+
+      const bounds = [];
+
+      data.forEach((item) => {
+        if (item.latitude && item.longitude) {
+          const marker = L.marker([item.latitude, item.longitude])
+            .bindPopup(`<b>${item.nama_fasilitas}</b>`)
+            .addTo(markersLayer);
+          bounds.push([item.latitude, item.longitude]);
+        }
+      });
+
+      if (bounds.length > 0) {
+        map.fitBounds(bounds);
+      }
+    }
+
+    // Fungsi untuk menampilkan hasil dalam list
+    function showResultsInList(data) {
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p>Tidak ada fasilitas ditemukan</p>";
+        return;
+      }
+
+      container.innerHTML = data
+        .map((item) => `
+          <a href="coba.html?id=${item.id_fasilitas}">
+            <div class="list-box">
+              <div class="image-list">
+                <img src="${kategori ? item.url_foto : 'image/rsnd.jpg'}" onerror="this.src='image/rsnd.jpg'" />
+              </div>
+              <div class="list-input">
+                <h3 style="color: black">${item.nama_fasilitas}</h3>
+                <p>${item.jam_operasional}</p>
+                <div class="rating">
+                  <i class="fa-solid fa-star" width="16" height="16"></i>
+                  <p>(${item.jumlah_ulasan || 0})</p>
+                </div>
+                <div class="dist">
+                  <i data-feather="map-pin" width="16" height="16"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        `).join("");
+      
+      feather.replace();
+    }
+
+    // Fungsi untuk memuat data
+    function loadData() {
+      let url;
+      if (kategori) {
+        url = `/by-kategori?kategori=${encodeURIComponent(kategori)}`;
+      } else if (keyword) {
+        url = `/search?q=${encodeURIComponent(keyword)}`;
+      } else {
+        url = "/search?q=";
+      }
+
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error("Gagal memuat data");
+          return res.json();
+        })
+        .then(data => {
+          showResultsInList(data);
+          showResultsOnMap(data);
+        })
+        .catch(err => {
+          console.error("Error:", err);
+          container.innerHTML = `<p>Error: ${err.message}</p>`;
+        });
+    }
+
+    // Jalankan pencarian
+    loadData();
+  });
+</script>
+      </div>
+    </section></div>
+
+    <script>
+      feather.replace();
+    </script>
+  </body>
+  <footer></footer>
+</html>

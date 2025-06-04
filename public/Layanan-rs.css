@@ -1,0 +1,219 @@
+:root {
+  --primary: #5a9b5c;
+  --bg: white;
+  --primefont: #304278;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+body {
+    position: relative
+  background-color: var(--bg);
+  color: black;
+}
+
+/* Logo + Slogan */
+.head1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 7%;
+  background: linear-gradient(to right, #304278, #5a9b5c);
+z-index: 999;
+  /* border bawah */
+  border-bottom: 1px solid #5a9b5c;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Logo */
+.head1 .logo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.head1 .logo a {
+    font-family: "anton", sans-serif;
+    color: white;
+    font-weight: 1px;
+    font-size: 2rem;
+    font-style: thin;
+  }
+
+.head1 .logo img {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* slogan */
+.slogan {
+  font-family: helvetica;
+  color: white;
+  font-size: 14px;
+}
+
+/* Head 2 */
+.head2 {
+padding: 10px;
+  font-family: helvetica;
+  font-size: 14px;
+  background-color: rgb(255, 255, 255);
+  color: #5a9b5c;
+}
+
+/* Navigasi */
+.navigasi  {
+    display: flex;
+    padding: 15px;
+    justify-content: center;
+    gap: 80px;
+    background-color:#edededc9;}
+
+    .navigasi a {
+        position: relative;
+        display: inline-block;
+    font-family: helvetica;
+    font-size: 16px;
+    font-style: bold;
+    color: #7e7e7e;
+    }
+
+    .navigasi  a:hover {
+        color: var(--primefont);
+      }
+      
+      .navigasi a::after {
+        content: "";
+        display: block;
+        border-bottom: 0.2rem solid var(--primefont);
+        transform: scaleX(0);
+        transition: 0.15s linear;
+      }
+
+      .navigasi  a:hover::after {
+        transform: scaleX(1);
+      }
+      
+      /* Result */
+      .result {
+        display: flex; /* Mengatur elemen dalam satu baris */
+        gap: 20px; /* Memberikan jarak antara box dan maps */
+        align-items: flex-start; /* Menyamakan posisi di atas */
+      }
+
+      /* box result */
+
+      .list-box  {
+        display: flex;
+        gap: 10px;
+        background-color: #edededc9;
+        margin-top: 20px;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        height: 150px;
+        width: 500px;
+        border-radius: 10px;
+        transition: background-color 0.3s, transform 0.2s;
+      }
+
+      .list-box:hover  {
+        background-color: #e7f0cf;
+        transform: scale(1.02);
+      }
+
+      .image-list img{
+        width: 150px;
+        height: 150px;
+        margin-left: 20px;
+        margin-top: 0px;
+        object-fit:contain;
+      }
+
+ .list-input{
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+  font-family: helvetica;
+  line-height: 1.5;
+  color: #7e7e7e;
+ }
+ .rating {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+ }
+
+ .rating i {
+  color: gold;
+}
+
+.dist {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+
+
+/* maps layout */
+  .maps-layout {
+    margin-top: 20px;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-bottom: 10px;
+        height: 480px;
+        width: 920px;
+        background-color: #edededc9;
+  }
+
+  /* Search Bar */
+.search-container {
+  display: flex;
+  margin-left: 5px;
+  align-items: center;
+  position: relative;
+  padding: 1.4rem;
+}
+
+.input-search {
+  width: 350px; /* Sesuaikan lebar */
+  padding: 8px 15px;
+  background: linear-gradient(to right, #2a4a3d, #6e7848);
+  border-radius: 25px; /* Membuatnya rounded */
+  outline: none;
+  font-size: 16px;
+  text-align: left;
+  caret-color: white;
+}
+
+.search-container button {
+  position: absolute;
+  left: 37%;
+  top: 52%;
+  background-color: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.search-container button #search {
+color: #ffffff; /* Warna ikon */
+}
+
+.search-container button #search:hover {
+  color: var(--primefont);
+}
+
+/* Leaflet */
+.leaflet-map {
+  margin-left: 20px;
+}
