@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layanan MedicGis</title>
+    <!-- Fonts ANTON -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- CSS STYLE -->
+    <link href="Layanan.css" rel="stylesheet" />
+    <!-- Leaflet Map -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <body>
+    <!-- Head Logo + Slogan Start -->
+    <section class="head1">
+      <div class="logo">
+        <a href="MedicGIS.html">MedicGIS</a>
+        <img src="image/logomedicgis75.jpg" />
+      </div>
+      <div class="slogan">
+        <h2>MedicGIS Navigate</h2>
+        <h2>Health, Access Faster</h2>
+      </div>
+    </section>
+
+    <!-- Section Jenis Fasilitas Kesehatan -->
+    <section class="head2">
+      <h2>Jenis Fasilitas Kesehatan</h2>
+    </section>
+
+    <!-- Navigasi Bar -->
+    <section class="navigasi">
+      <a href="Layanan.html">Semua</a>
+      <a href="Layanan-rs.html">Rumah Sakit</a>
+      <a href="Layanan-klinik.html">Klinik</a>
+      <a href="Layanan-puskesmas.html">Puskesmas</a>
+      <a href="Layanan-apotek.html">Apotek</a>
+      <a href="Layanan-lab.html">Laboratorium</a>
+    </section>
+
+    <!-- Search List -->
+    <section class="result">
+      <div class="box">
+        <a href="Layanan-pick.html"
+          ><div class="list-box">
+            <div class="image-list">
+              <img src="image/rsnd.jpg" />
+            </div>
+            <div class="list-input">
+              <h3 style="color: black">RS Nasional Diponegoro</h3>
+              <p>Buka 24 Jam</p>
+              <div class="rating">
+                <i class="fa-solid fa-star" width="16" height="16"></i>
+                <p>4.5</p>
+                <p>(10)</p>
+              </div>
+              <div class="dist">
+                <i data-feather="map-pin" width="16" height="16" style></i>
+                <p>2.3 KM</p>
+              </div>
+            </div>
+          </div></a
+        >
+        <a href="#"
+          ><div class="list-box">
+            <div class="image-list">
+              <img src="image/rsnd.jpg" />
+            </div>
+            <div class="list-input">
+              <h3 style="color: black">RS Nasional Diponegoro</h3>
+              <p>Buka 24 Jam</p>
+              <div class="rating">
+                <i class="fa-solid fa-star" width="16" height="16"></i>
+                <p>4.5</p>
+                <p>(10)</p>
+              </div>
+              <div class="dist">
+                <i data-feather="map-pin" width="16" height="16" style></i>
+                <p>2.3 KM</p>
+              </div>
+            </div>
+          </div></a
+        >
+        <a href="#"
+          ><div class="list-box">
+            <div class="image-list">
+              <img src="image/rsnd.jpg" />
+            </div>
+            <div class="list-input">
+              <h3 style="color: black">RS Nasional Diponegoro</h3>
+              <p>Buka 24 Jam</p>
+              <div class="rating">
+                <i class="fa-solid fa-star" width="16" height="16"></i>
+                <p>4.5</p>
+                <p>(10)</p>
+              </div>
+              <div class="dist">
+                <i data-feather="map-pin" width="16" height="16" style></i>
+                <p>2.3 KM
+                </p>
+              </div>
+            </div>
+          </div></a
+        >
+      </div>
+
+      
+      <!-- Maps and Search -->
+      <div class="maps">
+        <div class="maps-layout">
+          <div class="search-container">
+            <!--Search Bar-->
+            <a href="#" id="search"><i data-feather="search"></i></a>
+            <input type="text" class="input-search" placeholder="" />
+            <!--Search Bar End-->
+          </div>
+          <div
+            class="leaflet-map"
+            id="map"
+            style="width: 880px; height: 380px"
+          ></div>
+        <script type="text/javascript">
+          const map = L.map("map").setView([-7.051539, 110.442257], 12);
+
+          const tiles = L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+              attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright"></a>',
+            }
+          ).addTo(map);
+
+          // Marker
+          var facilities = [
+    { name: "Rumah Sakit Nasional Diponegoro (RSND)", lat: -7.047895, lon: 110.443630 },
+    { name: "Rumah Sakit Umum Daerah KRMT Wongsonegoro", lat: -7.034000, lon: 110.466529 },
+    { name: "Rumah Sakit UNIMUS", lat: -7.022172, lon: 110.458788 },
+    { name: "Primaya Hospital Semarang", lat: -7.023586, lon: 110.461623 },
+    { name: "Puskesmas Bulusan", lat: -7.060410, lon: 110.445651 },
+    { name: "Puskesmas Kelurahan Rowosari", lat: -7.055662, lon: 110.471810 },
+    { name: "Puskesmas Kedungmundu", lat: -7.026055, lon: 110.460227 },
+    { name: "Puskesmas Pembantu Rowosari Krajan", lat: -7.059219, lon: 110.482039 },
+    { name: "Puskesmas Pembantu Mangunharjo", lat: -7.044720, lon: 110.461083 },
+    { name: "Puskesmas Pembantu Sendangguwo", lat: -7.013502, lon: 110.453312 },
+    { name: "Puskesmas Pembantu Sambiroto", lat: -7.035467, lon: 110.451711 },
+    { name: "Klinik Pratama Medico Semarang", lat: -7.070364, lon: 110.439319 },
+    { name: "Denticare Dental Clinic", lat: -7.070528, lon: 110.440104 },
+    { name: "Klinik Mitra Umat", lat: -7.061106, lon: 110.445840 },
+    { name: "Klinik Pratama Erins", lat: -7.060802, lon: 110.446136 },
+    { name: "Klinik Umum dr. Kurnia & Homevisit 24 Jam", lat: -7.044986, lon: 110.468509 },
+    { name: "Klinik Pratama Diponegoro I", lat: -7.054690, lon: 110.433362 },
+    { name: "Klinik Mardi Mulya Sendangmulyo", lat: -7.046606, lon: 110.469492 },
+    { name: "Klinik Pratama LC Medika", lat: -7.039444, lon: 110.475310 },
+    { name: "Klinik Pratama Puri Husada", lat: -7.058102, lon: 110.434967 },
+    { name: "Klinik Pratama Sulistya Medika", lat: -7.063126, lon: 110.465278 },
+    { name: "Klinik Pratama Amelia Medika", lat: -7.057526, lon: 110.463484 },
+    { name: "Klinik Pratama Rowosari Asri", lat: -7.060131, lon: 110.478160 },
+    { name: "Klinik Utama Harapan Sehat Keluarga", lat: -7.034532, lon: 110.472076 },
+    { name: "Klinik Pratama Karyo Sih", lat: -7.031755, lon: 110.459423 },
+    { name: "Klinik Pratama 24 Jam DEKA Medika", lat: -7.037869, lon: 110.478859 },
+    { name: "Laboratorium Sentral RSND", lat: -7.048426, lon: 110.442975 },
+    { name: "Klinik Pratama Medika", lat: -7.026287, lon: 110.461695 },
+    { name: "Klinik Rahmat Medika Samoing Kampus Unimus", lat: -7.026362, lon: 110.461650 },
+    { name: "Klinik Rahmat Medika (BPJS & Umum)", lat: -7.023774, lon: 110.461826 },
+    { name: "Klinik Brimedika Semarang", lat: -7.013717, lon: 110.453038 },
+    { name: "Klinik Pratama Tjie Lam Tjay Kedungmundu", lat: -7.018532, lon: 110.455820 },
+    { name: "Klinik Gigi uSmile Dental Studio Semarang", lat: -7.014328, lon: 110.452970 },
+    { name: "Klinik Mitra Sejawat", lat: -7.018721, lon: 110.456152 },
+    { name: "Klinik Pratama Mahisi Mulya", lat: -7.023506, lon: 110.458701 },
+    { name: "Corpoderma Aesthetic Clinic Kedungmundu", lat: -7.027821, lon: 110.460697 },
+    { name: "Central Java Police Polyclinic", lat: -7.030647, lon: 110.462905 },
+    { name: "Apotek Sehit", lat: -7.045630, lon: 110.468893 },
+    { name: "Apotek K-24", lat: -7.014198, lon: 110.452900 },
+    { name: "Apotek Tembalang", lat: -7.053194, lon: 110.432636 },
+    { name: "Apotek Subur Sehat", lat: -7.038047, lon: 110.478969 },
+    { name: "Apotek K-24 Sambiroto", lat: -7.027385, lon: 110.456985 },
+    { name: "Apotek Tulus Harapan", lat: -7.034567, lon: 110.476485 },
+    { name: "Apotek Akbar", lat: -7.012636, lon: 110.451785 },
+    { name: "Apotek K-24 Ketileng Raya", lat: -7.029876, lon: 110.463293 },
+    { name: "Apotek Klipang Sehat", lat: -7.034793, lon: 110.475982 },
+    { name: "Apotek Sehat Raharja", lat: -7.060905, lon: 110.446727 },
+    { name: "Apotek Kimia Farma Banjarsari", lat: -7.060825, lon: 110.445803 },
+    { name: "Apotek Aletheia", lat: -7.041086, lon: 110.472616 },
+    { name: "Apotek Manshurin", lat: -7.033155, lon: 110.467172 },
+    { name: "Apotek Waras Barokah", lat: -7.022034, lon: 110.455864 },
+    { name: "Apotek Citra Medika", lat: -7.027368, lon: 110.456963 },
+    { name: "Apotek Surya Sehat", lat: -7.035387, lon: 110.469049 },
+    { name: "Apotek KeluargaKu", lat: -7.067982, lon: 110.448052 },
+    { name: "Apotek Peduli Kedungmundu", lat: -7.023625, lon: 110.461600 },
+    { name: "Apotek Harmoni Sehat", lat: -7.053382, lon: 110.487003 },
+    { name: "Apotek Sinar Waluyo", lat: -7.024386, lon: 110.463623 },
+    { name: "Apotek Meteseh", lat: -7.055698, lon: 110.475158 },
+    { name: "Apotek Peduli Sendangguwo", lat: -7.005326, lon: 110.456238 },
+    { name: "Apotek Sarwo Sehat", lat: -7.024945, lon: 110.462809 },
+    { name: "Apotek Manna", lat: -7.026412, lon: 110.461740 },
+];
+
+           // Tambahkan Marker ke Peta
+    facilities.forEach(function(facility) {
+        L.marker([facility.lat, facility.lon])
+        .addTo(map)
+        .bindPopup(`<b>${facility.name}</b>`);
+    });
+        </script>
+      </div>
+    </section>
+    <script>
+      feather.replace();
+    </script>
+  </body>
+  <footer></footer>
+</html>
