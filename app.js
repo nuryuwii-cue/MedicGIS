@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 // Contoh penggunaan
-console.log(process.env.DB_HOST); // Output: localhost
+console.log(process.env.DB_HOST); // Output: localhostcp .env .env.example
 
 // Middleware
 app.use(bodyParser.json());
